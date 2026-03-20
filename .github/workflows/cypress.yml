@@ -3,6 +3,9 @@ on: [push]
 jobs:
   tests:
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-24.14.0-chrome-146.0.7680.80-1-ff-148.0.2-edge-146.0.3856.62-1
+      options: --user 1001
     # Runs tests in parallel with matrix strategy https://on.cypress.io/parallelization
     # https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/run-job-variations
     # Also see warning here https://github.com/cypress-io/github-action#parallel
@@ -23,6 +26,7 @@ jobs:
           ## start: npm start
           install-command: npm install
           wait-on: 'https://petlov.vercel.app' # Waits for above
+          browser: chrome # Runs tests in Chrome - see supported browsers https://docs.cypress.io/guides/guides/command-line#Browsers
           # Records to Cypress Cloud 
           # https://docs.cypress.io/cloud/get-started/setup
           record: true
