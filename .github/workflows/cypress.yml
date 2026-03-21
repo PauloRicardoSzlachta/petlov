@@ -2,6 +2,9 @@ name: Cypress e2e Tests
 # on: [push]
 on: 
   workflow_dispatch: # Allows manual trigger from GitHub UI
+    inputs:
+      spec:
+        default: cypress/e2e/*
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -33,6 +36,8 @@ jobs:
           # https://docs.cypress.io/cloud/get-started/setup
           record: true
           parallel: true # Runs test in parallel using settings above
+          # spec: 'cypress/e2e/cadastro.cy.js' # Run specific spec file - optional
+          spec: ${{ github.event.inputs.spec }} # Example of running different specs in parallel - optional
         env:
           # For recording and parallelization you must set your CYPRESS_RECORD_KEY
           # in GitHub repo → Settings → Secrets → Actions
